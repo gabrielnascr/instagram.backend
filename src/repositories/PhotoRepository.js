@@ -24,7 +24,7 @@ const PhotoRepository = {
         user: {
           id: usersRows[0].id,
           username: usersRows[0].username,
-          profile_picture: usersRows[0].avatar,
+          profile_picture: usersRows[0].profile_picture,
         },
         caption: photo.caption,
         image_path: photo.image_path,
