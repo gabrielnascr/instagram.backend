@@ -5,14 +5,16 @@ import UserService from '../services/UserService';
 
 const router = Router();
 
-router.get('/profile', isAuthenticated ,async (req, res) => {
-   const loggedUser = await UserService.profile(req.user.id);
+router.get('/profile', isAuthenticated, async (req, res) => {
+  const loggedUser = await UserService.getProfile(req.user.id);
 
-   return res.send(loggedUser);
+  return res.send(loggedUser);
 });
 
-router.get('/feed', isAuthenticated, async (req, res) => {
-   return res.send(await PhotoRepository.findByUser(req.user.id));
-})
+router.get('/posts', isAuthenticated, async (req, res) => {
+  const posts = await PhotoRepository.findByUser(req.user.id);
+
+  return res.send(posts);
+});
 
 export default router;
