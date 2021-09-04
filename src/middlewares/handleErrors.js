@@ -1,4 +1,5 @@
-import ApiError from "../errors/ApiError";
+/* eslint-disable no-unused-vars */
+import ApiError from '../errors/ApiError';
 
 export default function ErrorHandler(error, req, res, next) {
   if (error instanceof ApiError) {
