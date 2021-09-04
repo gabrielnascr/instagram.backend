@@ -1,36 +1,38 @@
-import database from "../database/postgres";
+import database from '../database/postgres';
 
 const UserRepository = {
   findById: async (id) => {
     try {
       const { rows } = await database.query(
-        "SELECT * FROM users WHERE id = $1",
-        [id]
+        'SELECT * FROM public.user WHERE id = $1',
+        [id],
       );
 
       return rows[0];
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
   },
   findByEmail: async (email) => {
     try {
       const { rows } = await database.query(
-        "SELECT * FROM users WHERE email = $1",
-        [email]
+        'SELECT * FROM public.user WHERE email = $1',
+        [email],
       );
 
       return rows[0];
-    } catch (error) {}
+    } catch (error) {
+      throw new Error(error);
+    }
   },
   store: async (user) => {
     const query = `
-        INSERT INTO users (
+        INSERT INTO public.user (
             username,
             name,
             email,
             password,
-            avatar,
+            profile_picture,
             website,
             biography,
             phone_number
@@ -45,14 +47,16 @@ const UserRepository = {
         user.name,
         user.email,
         user.password,
-        user.avatar,
+        user.profile_picture,
         user.website,
         user.biography,
         user.phone_number,
       ]);
 
       return rows[0];
-    } catch (error) {}
+    } catch (error) {
+      throw new Error(error);
+    }
   },
 };
 
