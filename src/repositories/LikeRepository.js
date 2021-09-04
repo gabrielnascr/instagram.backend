@@ -1,7 +1,7 @@
-import database from "../database/postgres";
+import database from '../database/postgres';
 
 const LikeRepository = {
-  store: async (user_id, photo_id) => {
+  store: async (userId, photoId) => {
     const query = `
         INSERT INTO likes (
             user_id,
@@ -11,19 +11,23 @@ const LikeRepository = {
     `;
 
     try {
-      const { rows } = await database.query(query, [user_id, photo_id]);
+      const { rows } = await database.query(query, [userId, photoId]);
 
       return rows[0];
-    } catch (error) {}
+    } catch (error) {
+      throw new Error(error);
+    }
   },
-  delete: async (photo_id) => {
-    const query = "DELETE FROM likes WHERE photo_id = $1";
+  delete: async (photoId) => {
+    const query = 'DELETE FROM likes WHERE photo_id = $1';
 
     try {
-      const { rows } = await database.query(query, [photo_id]);
+      const { rows } = await database.query(query, [photoId]);
 
       return rows[0];
-    } catch (error) {}
+    } catch (error) {
+      throw new Error(error);
+    }
   },
 };
 
