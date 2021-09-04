@@ -1,27 +1,29 @@
-import ApiError from "../errors/ApiError";
-import jwt from "jsonwebtoken";
+/* eslint-disable consistent-return */
+import jwt from 'jsonwebtoken';
+import ApiError from '../errors/ApiError';
+
+import { JWT_SECRET } from '../environment';
 
 export default (req, res, next) => {
   const authorizationToken = req.headers.authorization;
 
   if (!authorizationToken) {
-    throw new ApiError(401, "Authorization token not provided.");
+    throw new ApiError(401, 'Authorization token not provided.');
   }
 
-  const bearerToken = authorizationToken.split(" ")[1];
+  const bearerToken = authorizationToken.split(' ')[1];
 
   if (!bearerToken) {
-    throw new ApiError(401, "Authorization token malformed.");
+    throw new ApiError(401, 'Authorization token malformed.');
   }
 
   try {
-    const userDecoded = jwt.verify(bearerToken, process.env.JWT_SECRET);
+    const userDecoded = jwt.verify(bearerToken, JWT_SECRET);
 
     req.user = userDecoded;
-    console.log(req.user);
 
     return next();
   } catch (error) {
-    console.log(error);
+    throw new Error(error);
   }
 };
