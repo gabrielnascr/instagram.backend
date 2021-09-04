@@ -1,10 +1,9 @@
-
-CREATE TABLE users(
+CREATE TABLE "user" (
   id SERIAL PRIMARY KEY,
-  username VARCHAR(50) NOT NULL UNIQUE,
-  name VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL UNIQUE,
   password VARCHAR(255) NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  username VARCHAR(50) NOT NULL UNIQUE,
   profile_picture VARCHAR(255) NULL,
   website VARCHAR(255) NULL,
   biography VARCHAR(255) NULL,
@@ -13,17 +12,17 @@ CREATE TABLE users(
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
-CREATE TABLE user_followers(
+CREATE TABLE "user_followers" (
   id SERIAL PRIMARY KEY,
   user_id INTEGER NOT NULL,
   follower_id INTEGER NOT NULL,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-  FOREIGN KEY (user_id) REFERENCES users(id),
-  FOREIGN KEY (follower_id) REFERENCES users(id)
-)
+  FOREIGN KEY (user_id) REFERENCES "user"(id),
+  FOREIGN KEY (follower_id) REFERENCES "user"(id)
+);
 
-CREATE TABLE photos(
+CREATE TABLE "photo" (
   id SERIAL PRIMARY KEY,
   user_id INTEGER NOT NULL,
   caption VARCHAR (255) NULL,
@@ -31,27 +30,29 @@ CREATE TABLE photos(
   image_size INTEGER NOT NULL,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-  FOREIGN KEY (user_id) REFERENCES users(id)
+  FOREIGN KEY (user_id) REFERENCES "user"(id)
 );
 
-CREATE TABLE comments(
+CREATE TABLE "comment" (
   id SERIAL PRIMARY KEY,
-  comment VARCHAR (255) NOT NULL
+  author_id INTEGER NOT NULL,
+  text VARCHAR (255) NOT NULL,
+  FOREIGN KEY (author_id) REFERENCES "user"(id)
 );
 
-CREATE TABLE photos_comments(
+CREATE TABLE "photo_comments" (
   id SERIAL PRIMARY KEY,
   photo_id INTEGER,
   comment_id INTEGER,
-  FOREIGN KEY (photo_id) REFERENCES photos(id),
-  FOREIGN KEY (comment_id) REFERENCES comments(id)
+  FOREIGN KEY (photo_id) REFERENCES "photo"(id),
+  FOREIGN KEY (comment_id) REFERENCES "comment"(id)
 );
 
-CREATE TABLE likes (
+CREATE TABLE "like" (
   id SERIAL PRIMARY KEY,
   user_id INTEGER NOT NULL,
   photo_id INTEGER NOT NULL,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-  FOREIGN KEY (user_id) REFERENCES users(id)
+  FOREIGN KEY (user_id) REFERENCES "user"(id)
 );

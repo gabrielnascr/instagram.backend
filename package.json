@@ -7,8 +7,12 @@
     "start": "babel-node ./src/server.js"
   },
   "dependencies": {
+    "@databases/pg": "^5.1.1",
+    "@hapi/joi": "^17.1.1",
     "aws-sdk": "^2.978.0",
+    "batch": "^0.6.1",
     "bcryptjs": "^2.4.3",
+    "child_process": "^1.0.2",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
@@ -25,6 +29,7 @@
     "@babel/node": "^7.14.9",
     "@babel/plugin-proposal-class-properties": "^7.14.5",
     "@babel/preset-env": "^7.15.0",
+    "@databases/pg-migrations": "^5.0.0",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.24.2"

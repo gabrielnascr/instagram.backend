@@ -1,6 +1,4 @@
-import AWS from "aws-sdk";
-import fs from 'fs';
-import { v4 } from 'uuid';
+import AWS from 'aws-sdk';
 
 const bucketName = process.env.AWS_BUCKET_NAME;
 const region = process.env.AWS_REGION;
@@ -19,7 +17,7 @@ export function uploadFile(file) {
     Body: file.buffer,
     ACL: 'public-read',
     Key: `${Date.now()} - ${file.originalname}`,
-  }
+  };
 
   return S3.upload(uploadParams).promise();
 }
