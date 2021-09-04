@@ -1,12 +1,8 @@
 import LikeRepository from '../repositories/LikeRepository';
 
 const LikeService = {
-  likePhoto: async (photo_id, user_id) => {
-    return await LikeRepository.store(user_id, photo_id)
-  },
-  unLikePhoto: async (photo_id) => {
-    return await LikeRepository.delete(photo_id);
-  }
-}
+  likePhoto: async (photoId, userId) => await LikeRepository.store(userId, photoId),
+  unLikePhoto: async (photoId) => await LikeRepository.delete(photoId),
+};
 
-export default LikeService
+export default LikeService;

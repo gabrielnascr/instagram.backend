@@ -1,16 +1,16 @@
-import UserRepository from "../repositories/UserRepository";
+import FollowersRepository from '../repositories/FollowersRepository';
+import UserRepository from '../repositories/UserRepository';
 
 const UserService = {
-  profile: async (loggedUserID) => {
+  getProfile: async (loggedUserID) => {
     const user = await UserRepository.findById(loggedUserID);
 
     delete user.password;
     return user;
   },
-  update: async () => {
+  updateProfile: async () => {
 
   },
-  
-}
+};
 
 export default UserService;

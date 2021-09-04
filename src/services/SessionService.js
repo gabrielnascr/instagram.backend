@@ -1,26 +1,22 @@
-import UserRepository from "../repositories/UserRepository";
-import StatusCode from "../constants/statusCode";
-import ApiError from "../errors/ApiError";
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import UserRepository from '../repositories/UserRepository';
+import ApiError from '../errors/ApiError';
 
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-
-const generateJwt = (payload) => {
-  return jwt.sign(payload, process.env.JWT_SECRET);
-};
+const generateJwt = (payload) => jwt.sign(payload, process.env.JWT_SECRET);
 
 const SessionService = {
   login: async ({ email, password }) => {
     const user = await UserRepository.findByEmail(email);
 
     if (!user) {
-      throw new ApiError(StatusCode.NOT_FOUND, "User not found.");
+      throw new ApiError(404, 'User not found.');
     }
 
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
 
     if (!isPasswordCorrect) {
-      throw new ApiError(StatusCode.UNAUTHORIZED, "Invalid credentials.");
+      throw new ApiError(401, 'Invalid credentials.');
     }
 
     const token = generateJwt({
@@ -43,7 +39,7 @@ const SessionService = {
     const userExists = await UserRepository.findByEmail(user.email);
 
     if (userExists) {
-      throw new ApiError(StatusCode.UNAUTHORIZED, "User already exists.");
+      throw new ApiError(401, 'User already exists.');
     }
 
     const encryptedPassword = await bcrypt.hash(user.password, 8);
