@@ -2,8 +2,9 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import UserRepository from '../repositories/UserRepository';
 import ApiError from '../errors/ApiError';
+import { JWT_SECRET } from '../environment';
 
-const generateJwt = (payload) => jwt.sign(payload, process.env.JWT_SECRET);
+const generateJwt = (payload) => jwt.sign(payload, JWT_SECRET);
 
 const SessionService = {
   login: async ({ email, password }) => {
@@ -36,9 +37,10 @@ const SessionService = {
     return responseData;
   },
   signUp: async (user) => {
-    const userExists = await UserRepository.findByEmail(user.email);
+    const userEmailExists = await UserRepository.findByEmail(user.email);
+    const usernameExists = await UserRepository.findByUsername(user.username);
 
-    if (userExists) {
+    if (userEmailExists || usernameExists) {
       throw new ApiError(401, 'User already exists.');
     }
 
