@@ -9,10 +9,10 @@ import {
 } from '../environment';
 
 const pool = new Pool({
-  user: DB_USER || 'gabriel',
+  user: DB_USER || 'postgres',
   host: DB_HOST || 'localhost',
   database: DB_NAME || 'instagram',
-  password: DB_PASSWORD || 'gabriel',
+  password: DB_PASSWORD || '123',
   port: DB_PORT || 5432,
 });
 
