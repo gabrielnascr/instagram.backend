@@ -15,6 +15,7 @@ const {
   DB_PORT,
   DB_PASSWORD,
   DB_NAME,
+  DATABASE_URL,
 } = process.env;
 
 // Auth configuration enviroviment variables
@@ -35,6 +36,7 @@ export {
   DB_PORT,
   DB_PASSWORD,
   DB_NAME,
+  DATABASE_URL,
 };
 
 export {

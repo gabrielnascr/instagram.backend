@@ -16,4 +16,6 @@ router.use('/photos', photosRoutes);
 router.use('/sessions', sessionsRoutes);
 router.use('/users', usersRoutes);
 
+router.get('*', (req, res) => res.status(404).send({ status: 404, message: 'This path not exists' }));
+
 export default router;
