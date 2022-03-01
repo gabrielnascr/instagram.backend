@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "start": "babel-node ./src/server.js",
-    "dev": "nodemon ./src/server.js"
+    "dev": "nodemon ./src/server.js",
+    "run:migration": "babel-node ./cmd/migrate.js"
   },
   "dependencies": {
     "@databases/pg": "^5.1.1",

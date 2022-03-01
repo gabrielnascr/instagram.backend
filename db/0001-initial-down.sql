@@ -1,6 +1,0 @@
-DROP TABLE IF EXISTS "user_followers";
-DROP TABLE IF EXISTS "photo_comments";
-DROP TABLE IF EXISTS "photo";
-DROP TABLE IF EXISTS "comment";
-DROP TABLE IF EXISTS "likes";
-DROP TABLE IF EXISTS "user";

@@ -1,4 +1,4 @@
-CREATE TABLE "user" (
+CREATE TABLE IF NOT EXISTS "user" (
   id SERIAL PRIMARY KEY,
   email VARCHAR(255) NOT NULL UNIQUE,
   password VARCHAR(255) NOT NULL,
@@ -12,7 +12,7 @@ CREATE TABLE "user" (
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
-CREATE TABLE "user_followers" (
+CREATE TABLE IF NOT EXISTS "user_followers" (
   id SERIAL PRIMARY KEY,
   user_id INTEGER NOT NULL,
   follower_id INTEGER NOT NULL,
@@ -22,7 +22,7 @@ CREATE TABLE "user_followers" (
   FOREIGN KEY (follower_id) REFERENCES "user"(id)
 );
 
-CREATE TABLE "photo" (
+CREATE TABLE IF NOT EXISTS "photo" (
   id SERIAL PRIMARY KEY,
   user_id INTEGER NOT NULL,
   caption VARCHAR (255) NULL,
@@ -33,14 +33,14 @@ CREATE TABLE "photo" (
   FOREIGN KEY (user_id) REFERENCES "user"(id)
 );
 
-CREATE TABLE "comment" (
+CREATE TABLE IF NOT EXISTS "comment" (
   id SERIAL PRIMARY KEY,
   author_id INTEGER NOT NULL,
   text VARCHAR (255) NOT NULL,
   FOREIGN KEY (author_id) REFERENCES "user"(id)
 );
 
-CREATE TABLE "photo_comments" (
+CREATE TABLE IF NOT EXISTS "photo_comments" (
   id SERIAL PRIMARY KEY,
   photo_id INTEGER,
   comment_id INTEGER,
@@ -48,7 +48,7 @@ CREATE TABLE "photo_comments" (
   FOREIGN KEY (comment_id) REFERENCES "comment"(id)
 );
 
-CREATE TABLE "like" (
+CREATE TABLE IF NOT EXISTS "like" (
   id SERIAL PRIMARY KEY,
   user_id INTEGER NOT NULL,
   photo_id INTEGER NOT NULL,
