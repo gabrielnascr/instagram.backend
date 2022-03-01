@@ -13,6 +13,18 @@ const UserRepository = {
       throw new Error(error);
     }
   },
+  findByUsername: async (username) => {
+    try {
+      const { rows } = await database.query(
+        'SELECT * FROM public.user WHERE username = $1',
+        [username],
+      );
+
+      return rows[0];
+    } catch (error) {
+      throw new Error(error);
+    }
+  },
   findByEmail: async (email) => {
     try {
       const { rows } = await database.query(
