@@ -7,13 +7,10 @@ const UserService = {
     const userFollowers = await FriendshipsService.followers({ userId: user.id });
 
     delete user.password;
-
-    const response = {
+    return {
       user,
       followers: userFollowers,
     };
-
-    return response;
   },
   updateProfile: async () => {
 
