@@ -28,12 +28,10 @@ router.post('/:userId/unfollow', isAuthenticated, async (req, res) => {
 
   const { id: followerId } = req.user;
 
-  const unfollow = await FriendshipsService.unFollow({
+  await FriendshipsService.unFollow({
     userId,
     followerId,
-  });
-
-  return res.status(200).send(unfollow);
+  }).then(() => res.status(200).send({ message: 'user unfollow' }));
 });
 
 export default router;
